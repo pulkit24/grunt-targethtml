@@ -64,7 +64,12 @@ module.exports = function(grunt) {
 
             // Process any curly tags in content
             return $3.replace(/\{\{([^{}]*)\}\}/g, function(match, search) {
-              var replace = options.curlyTags[search];
+                var replace = null;
+                for(var tag in options.curlyTags) {
+                    if(search.match(tag)) {
+                        replace = options.curlyTags[tag];
+                    }
+                }
               return ('string' === typeof replace) ? replace : match;
             });
           });
